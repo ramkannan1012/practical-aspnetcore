@@ -13,6 +13,7 @@ pipeline {
         stage('Build'){
             steps{
                 sh '''
+                        cd /home/ubuntu/netproject/practical-aspnetcore/projects/application-environment/
                         dotnet build application-environment.csproj
                         
                    '''
