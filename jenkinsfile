@@ -1,7 +1,10 @@
 pipeline {
     agent {label 'slave'}
     stages {
-        stage('initialize') {   
+        stage('initialize') {
+                environment {
+                cred = credentials('Aws-artifacts')
+            }
             steps {
                 sh '''
                         export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nudom --domain-owner 678876462442 --query authorizationToken --output text`
@@ -21,9 +24,6 @@ pipeline {
 
         }
         stage('pushartifacts to AWS') {
-                environment {
-                cred = credentials('Aws-artifacts')
-            }
             steps {
                 sh '''
                         cd /home/ubuntu/netproject/practical-aspnetcore/projects/application-environment/
