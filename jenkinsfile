@@ -1,8 +1,10 @@
 pipeline {
     agent {label 'slave'}
-
     stages {
         stage('initialize') {
+                environment {
+                Aws-artifacts = credentials('Aws-artifacts')
+            }   
             steps {
                 sh '''
                         export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nudom --domain-owner 678876462442 --query authorizationToken --output text`
