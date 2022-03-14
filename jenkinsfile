@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('initialize') {
                 environment {
-                Aws-artifacts = credentials('Aws-artifacts')
+                cred = credentials('Aws-artifacts')
             }   
             steps {
                 sh '''
