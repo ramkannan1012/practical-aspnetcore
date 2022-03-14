@@ -4,5 +4,6 @@
     <AssemblyName>application-environment</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>application-environment</PackageId>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 </Project>
