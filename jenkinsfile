@@ -4,11 +4,11 @@ pipeline {
         stage('initialize') {
                 environment {
                 cred = credentials('Aws-artifacts')
-                echo $cred
             }
             steps {
                 sh '''
                         export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nudom --domain-owner 678876462442 --query authorizationToken --output text`
+                        dotnet nuget add source "https://nudom-678876462442.d.codeartifact.ap-south-1.amazonaws.com/nuget/nu-repo/v3/index.json" -n "nudom/nu-repo" -u "aws" -p "${CODEARTIFACT_AUTH_TOKEN}" --store-password-in-clear-text
 
                    '''
             }
