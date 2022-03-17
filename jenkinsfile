@@ -4,7 +4,7 @@ pipeline {
         stage('initialize') {
                 environment {
                 cred = credentials('Aws-artifacts')
-                echo "cred"
+                echo $cred
             }
             steps {
                 sh '''
