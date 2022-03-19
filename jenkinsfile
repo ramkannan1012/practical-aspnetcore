@@ -1,16 +1,20 @@
 pipeline {
-    agent {label 'slave'}
-    stages {
-        stage('initialize') {
-                environment {
-                cred = credentials('Aws-artifacts')
-            }
+    agent {label 'linux'}
+    ##stages {
+        stage('Checkout Gitlab') {
             steps {
+                git  branch: 'net5.0', credentialsId: 'zcs-repo', url: 'https://github.com/ramkannan1012/practical-aspnetcore.git'
+            }
+        }##
+        stage('initialize') {
+            steps {
+                withAWS(credentials: 'Aws-artifacts', region: 'ap-south-1') {
                 sh '''
                         export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nudom --domain-owner 678876462442 --query authorizationToken --output text`
                         dotnet nuget add source "https://nudom-678876462442.d.codeartifact.ap-south-1.amazonaws.com/nuget/nu-repo/v3/index.json" -n "nudom/nu-repo" -u "aws" -p "${CODEARTIFACT_AUTH_TOKEN}" --store-password-in-clear-text
 
-                   '''
+                  '''
+                }
             }
         }
         stage('Build'){
